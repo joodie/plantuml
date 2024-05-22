@@ -252,19 +252,19 @@ jobs:
       - name: Restore native image macos
         uses: actions/cache/restore@v4
         with:
-          key: "native-image-macos-latest-${{ github.run_id }}"
+          key: "native-image-darwin-amd64-${{ github.run_id }}"
           path: build/libs
 
       - name: Restore native image linux
         uses: actions/cache/restore@v4
         with:
-          key: "native-image-ubuntu-latest-${{ github.run_id }}"
+          key: "native-image-linux-amd64-${{ github.run_id }}"
           path: build/libs
 
       - name: Restore native image windows
         uses: actions/cache/restore@v4
         with:
-          key: "native-image-windows-latest-${{ github.run_id }}"
+          key: "native-image-win-amd64-${{ github.run_id }}"
           path: build/libs
 
       - name: Upload artifacts
