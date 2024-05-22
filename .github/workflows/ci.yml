@@ -186,6 +186,12 @@ jobs:
           key: "libs-${{ github.run_id }}"
           enableCrossOsArchive: true
 
+  build_native_image:
+    needs: [ build_artifacts ]
+    uses: ./.github/workflows/native-image.yml
+    with:
+      release-version: ${{ needs.build_artifacts.outputs.RELEASE_VERSION }}
+
   deploy_javadoc:
     needs: [ build_artifacts, test_linux ]
     if: needs.workflow_config.outputs.do_javadoc == 'true'
