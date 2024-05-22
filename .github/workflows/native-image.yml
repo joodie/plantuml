@@ -6,6 +6,11 @@ on:
       release-version:
         required: true
         type: string
+  workflow_dispatch:
+    inputs:
+      release-version:
+        required: true
+        type: string
 
 jobs:
   build_non_win_images:
