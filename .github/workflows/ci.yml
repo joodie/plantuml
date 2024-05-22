@@ -220,7 +220,7 @@ jobs:
     if: |
       needs.workflow_config.outputs.do_release == 'true' ||
       needs.workflow_config.outputs.do_snapshot_release == 'true'
-    needs: [ workflow_config, build_artifacts, test_linux ]
+    needs: [ workflow_config, build_artifacts, test_linux, build_native_image ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -248,6 +248,21 @@ jobs:
           key: "libs-${{ github.run_id }}"
           fail-on-cache-miss: true
           enableCrossOsArchive: true
+
+      - name: Restore native image macos
+        uses: actions/cache/restore@v4
+        with:
+          key: "native-image-macos-latest-${{ github.run_id }}"
+
+      - name: Restore native image linux
+        uses: actions/cache/restore@v4
+        with:
+          key: "native-image-ubuntu-latest-${{ github.run_id }}"
+
+      - name: Restore native image windows
+        uses: actions/cache/restore@v4
+        with:
+          key: "native-image-windows-latest-${{ github.run_id }}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
